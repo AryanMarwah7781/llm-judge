@@ -716,7 +716,7 @@
                     <div className="mb-4 p-4 bg-red-200 border-2 border-red-600">
                       <div className="flex items-start gap-3">
                         <AlertTriangle className="w-5 h-5 mt-1 flex-shrink-0" />
-                        <div>
+                        <div className="flex-1">
                           <div className="font-black text-sm mb-1 uppercase">REJECTION_REASON:</div>
                           <div className="text-sm font-mono">{result.reason}</div>
                         </div>
@@ -724,14 +724,40 @@
                     </div>
                   )}
                   
+                  {/* Detailed Criterion Scores with Reasoning */}
                   {result.details && (
-                    <div className="mt-4 pt-4 border-t-2 border-black/20 space-y-2">
+                    <div className="mt-4 pt-4 border-t-2 border-black/20 space-y-4">
                       {Object.entries(result.details).map(([criterionName, criterionData]) => (
-                        <div key={criterionName} className="flex justify-between items-center text-sm font-mono">
-                          <span>{criterionName}:</span>
-                          <span className={criterionData.passed ? 'text-green-700' : 'text-red-700'}>
-                            {criterionData.score}/100 {criterionData.passed ? '✓' : '✗'}
-                          </span>
+                        <div key={criterionName} className={`p-4 border-2 ${criterionData.passed ? 'border-green-600 bg-green-50' : 'border-red-600 bg-red-50'}`}>
+                          {/* Criterion Header */}
+                          <div className="flex justify-between items-center mb-3">
+                            <div className="font-black text-base font-mono uppercase">{criterionName}</div>
+                            <div className={`text-2xl font-black ${criterionData.passed ? 'text-green-700' : 'text-red-700'}`}>
+                              {criterionData.score}/100 {criterionData.passed ? '✓' : '✗'}
+                            </div>
+                          </div>
+                          
+                          {/* Reasoning */}
+                          {criterionData.reasoning && (
+                            <div className="mb-3">
+                              <div className="font-bold text-xs mb-1 uppercase text-gray-700">Analysis:</div>
+                              <div className="text-sm text-gray-800 leading-relaxed">{criterionData.reasoning}</div>
+                            </div>
+                          )}
+                          
+                          {/* Issues List */}
+                          {criterionData.issues && criterionData.issues.length > 0 && (
+                            <div>
+                              <div className="font-bold text-xs mb-2 uppercase text-red-700">Issues Found:</div>
+                              <ul className="list-disc list-inside space-y-1">
+                                {criterionData.issues.map((issue, idx) => (
+                                  <li key={idx} className="text-sm text-red-900">
+                                    {issue}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>

@@ -1,0 +1,52 @@
+# Railway ignore file
+# These files won't be uploaded to Railway
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.venv/
+venv/
+ENV/
+
+# Environment files (IMPORTANT - use Railway dashboard for secrets)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+backend.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation (already in docs/)
+*.md
+!README.md
+
+# Git
+.git/
+.gitignore
+
+# Local test files
+test_api.py
+verify_setup.py
+example_usage.py
+law_questions.pdf

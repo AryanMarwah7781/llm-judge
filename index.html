@@ -224,7 +224,8 @@
               id: evaluation.qa_id || idx + 1,
               verdict: evaluation.verdict,
               score: Math.round(evaluation.weighted_score),
-              details: evaluation.scores
+              details: evaluation.scores,
+              reason: evaluation.reason || null
             })),
             summary: {
               total: data.summary.total_evaluated || 0,
@@ -709,6 +710,19 @@
                       <div className="text-sm font-mono">SCORE</div>
                     </div>
                   </div>
+                  
+                  {/* Rejection Reason - Show prominently if verdict is REJECT */}
+                  {result.verdict === 'REJECT' && result.reason && (
+                    <div className="mb-4 p-4 bg-red-200 border-2 border-red-600">
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="w-5 h-5 mt-1 flex-shrink-0" />
+                        <div>
+                          <div className="font-black text-sm mb-1 uppercase">REJECTION_REASON:</div>
+                          <div className="text-sm font-mono">{result.reason}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   
                   {result.details && (
                     <div className="mt-4 pt-4 border-t-2 border-black/20 space-y-2">

@@ -38,12 +38,9 @@ class LLMJudge:
     def _get_anthropic_client(self) -> AsyncAnthropic:
         """Get or initialize Anthropic client."""
         if not self._anthropic_initialized and settings.has_anthropic_key():
-            import httpx
-            # Create httpx client without proxies parameter for compatibility
-            http_client = httpx.AsyncClient()
+            # Initialize Anthropic client with just the API key
             self.anthropic_client = AsyncAnthropic(
-                api_key=settings.anthropic_api_key,
-                http_client=http_client
+                api_key=settings.anthropic_api_key
             )
             self._anthropic_initialized = True
         return self.anthropic_client

@@ -158,8 +158,6 @@
           
           // Map frontend model names to backend model names
           const modelMap = {
-            'O1': 'o1',
-            'O1-MINI': 'o1-mini',
             'CLAUDE_SONNET_4.5': 'claude-sonnet-4',
             'GPT-4O': 'gpt-4o',
             'GPT-4O-MINI': 'gpt-4o-mini'
@@ -516,25 +514,11 @@
             <div className="space-y-6 mb-12">
               {[
                 {
-                  name: 'O1',
-                  speed: 'DEEP_THINKING',
-                  cost: '$0.15',
-                  accuracy: '98%',
-                  reasoning: true,
-                  recommended: true
-                },
-                {
-                  name: 'O1-MINI',
-                  speed: 'FAST_REASONING',
-                  cost: '$0.03',
-                  accuracy: '94%',
-                  reasoning: true
-                },
-                {
                   name: 'CLAUDE_SONNET_4.5',
                   speed: 'FAST',
                   cost: '$0.03',
                   accuracy: '95%',
+                  recommended: true
                 },
                 {
                   name: 'GPT-4O',
@@ -557,14 +541,7 @@
                   }`}
                 >
                   <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-3xl font-black uppercase font-mono">{model.name}</h3>
-                      {model.reasoning && (
-                        <div className="px-3 py-1 bg-purple-500 text-white text-xs font-black rounded">
-                          🧠 REASONING
-                        </div>
-                      )}
-                    </div>
+                    <h3 className="text-3xl font-black uppercase font-mono">{model.name}</h3>
                     {model.recommended && (
                       <div className="px-4 py-1 border-2 border-current text-sm font-black">
                         RECOMMENDED
@@ -583,7 +560,7 @@
                     </div>
                     <div>
                       <div className="text-xl font-black mb-1">{model.speed}</div>
-                      <div className="opacity-60">MODE</div>
+                      <div className="opacity-60">SPEED</div>
                     </div>
                   </div>
                 </button>

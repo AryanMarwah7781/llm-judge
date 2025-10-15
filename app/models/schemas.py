@@ -14,7 +14,7 @@ class Criterion(BaseModel):
 class EvaluationRequest(BaseModel):
     """Request model for evaluation endpoint (from form data)."""
     criteria: List[Criterion]
-    judge_model: Literal["gpt-4o", "gpt-4o-mini", "claude-sonnet-4"] = Field(
+    judge_model: Literal["gpt-4o", "gpt-4o-mini", "o1", "o1-mini", "claude-sonnet-4"] = Field(
         default="gpt-4o",
         description="LLM judge model to use"
     )

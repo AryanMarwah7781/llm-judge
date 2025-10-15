@@ -38,7 +38,7 @@ async def evaluate(
     Args:
         file: PDF or TXT file containing Q&A pairs
         criteria: JSON string with evaluation criteria
-        judge_model: LLM judge model (gpt-4o, gpt-4o-mini, claude-sonnet-4)
+        judge_model: LLM judge model (gpt-4o, gpt-4o-mini, o1, o1-mini, claude-sonnet-4)
         global_threshold: Global threshold for pass/fail (0-100)
         domain: Domain context (legal, medical, finance, general)
         
@@ -65,7 +65,7 @@ async def evaluate(
             )
         
         # Validate judge model
-        valid_models = ["gpt-4o", "gpt-4o-mini", "claude-sonnet-4"]
+        valid_models = ["gpt-4o", "gpt-4o-mini", "o1", "o1-mini", "claude-sonnet-4"]
         if judge_model not in valid_models:
             raise HTTPException(
                 status_code=400,
@@ -73,7 +73,7 @@ async def evaluate(
             )
         
         # Check if API key is configured for selected model
-        if judge_model.startswith("gpt-") and not settings.has_openai_key():
+        if (judge_model.startswith("gpt-") or judge_model.startswith("o1")) and not settings.has_openai_key():
             raise HTTPException(
                 status_code=500,
                 detail="OpenAI API key not configured. Please set OPENAI_API_KEY environment variable."
@@ -137,6 +137,28 @@ async def get_models() -> ModelsResponse:
             cost_per_1k_tokens={
                 "input": 0.00015,
                 "output": 0.0006
+            }
+        ),
+        JudgeModel(
+            id="o1",
+            name="O1",
+            provider="OpenAI",
+            description="OpenAI's reasoning model with extended thinking for complex analysis",
+            context_window=200000,
+            cost_per_1k_tokens={
+                "input": 0.015,
+                "output": 0.060
+            }
+        ),
+        JudgeModel(
+            id="o1-mini",
+            name="O1 Mini",
+            provider="OpenAI",
+            description="Faster reasoning model optimized for STEM and code tasks",
+            context_window=128000,
+            cost_per_1k_tokens={
+                "input": 0.003,
+                "output": 0.012
             }
         ),
         JudgeModel(

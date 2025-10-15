@@ -118,17 +118,36 @@ class LLMJudge:
             )
         
         try:
-            response = await client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": get_system_prompt()},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=0.3,  # Lower temperature for consistency
-                response_format={"type": "json_object"}
-            )
+            # o1 models don't support system messages or temperature
+            is_reasoning_model = model.startswith("o1")
+            
+            if is_reasoning_model:
+                # For o1 models: combine system prompt with user prompt
+                combined_prompt = f"{get_system_prompt()}\n\n{prompt}"
+                response = await client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "user", "content": combined_prompt}
+                    ]
+                )
+            else:
+                # For regular models: use system message and temperature
+                response = await client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": get_system_prompt()},
+                        {"role": "user", "content": prompt}
+                    ],
+                    temperature=0.3,  # Lower temperature for consistency
+                    response_format={"type": "json_object"}
+                )
             
             result = response.choices[0].message.content
+            
+            # For o1 models, we might need to extract JSON from the response
+            if is_reasoning_model:
+                result = self._extract_json(result)
+            
             parsed = json.loads(result)
             
             return self._validate_and_normalize_result(parsed)

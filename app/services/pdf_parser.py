@@ -9,23 +9,30 @@ from app.models.schemas import QAPair
 
 async def parse_pdf(file: UploadFile) -> List[QAPair]:
     """
-    Parse uploaded PDF and extract Q&A pairs.
+    Parse uploaded PDF or TXT file and extract Q&A pairs.
     
     Args:
-        file: Uploaded PDF file
+        file: Uploaded PDF or TXT file
         
     Returns:
         List of QAPair objects
         
     Raises:
-        HTTPException: If PDF is invalid or parsing fails
+        HTTPException: If file is invalid or parsing fails
     """
     try:
         # Validate file type
-        if not file.filename or not file.filename.lower().endswith('.pdf'):
+        if not file.filename:
             raise HTTPException(
                 status_code=400,
-                detail="Invalid file format. Only PDF files are accepted."
+                detail="No filename provided"
+            )
+        
+        filename_lower = file.filename.lower()
+        if not (filename_lower.endswith('.pdf') or filename_lower.endswith('.txt')):
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid file format. Only PDF and TXT files are accepted."
             )
         
         # Read file content
@@ -34,8 +41,34 @@ async def parse_pdf(file: UploadFile) -> List[QAPair]:
         if not content:
             raise HTTPException(
                 status_code=400,
-                detail="Empty PDF file"
+                detail="Empty file"
             )
+        
+        # Check if it's a TXT file - process directly
+        if filename_lower.endswith('.txt'):
+            # Decode text content
+            try:
+                text = content.decode('utf-8')
+            except UnicodeDecodeError:
+                # Try other encodings
+                try:
+                    text = content.decode('latin-1')
+                except UnicodeDecodeError:
+                    raise HTTPException(
+                        status_code=400,
+                        detail="Unable to decode text file. Please ensure it's in UTF-8 or Latin-1 encoding."
+                    )
+            
+            # Extract Q&A pairs from text
+            qa_pairs = _extract_qa_pairs(text)
+            
+            if not qa_pairs:
+                raise HTTPException(
+                    status_code=400,
+                    detail="No Q&A pairs found in text file. Ensure the file contains clearly marked questions and answers."
+                )
+            
+            return qa_pairs
         
         # Parse PDF using pymupdf4llm
         # Save temporarily to parse

@@ -1,0 +1,21 @@
+Q: What are Newton's three laws of motion?
+A: Newton's three laws of motion are:
+1. First Law (Law of Inertia): An object at rest stays at rest and an object in motion stays in motion with the same speed and direction unless acted upon by an external force.
+2. Second Law: The acceleration of an object depends on the net force acting upon it and its mass. F = ma.
+3. Third Law: For every action, there is an equal and opposite reaction.
+
+Q: What is the structure of DNA?
+A: DNA (deoxyribonucleic acid) has a double helix structure, discovered by James Watson and Francis Crick in 1953. It consists of two polynucleotide chains that coil around each other. Each chain is made of nucleotides containing a sugar (deoxyribose), a phosphate group, and one of four nitrogenous bases (adenine, thymine, guanine, or cytosine). The bases pair specifically: adenine with thymine, and guanine with cytosine.
+
+Q: What is the difference between mitosis and meiosis?
+A: Mitosis and meiosis are both forms of cell division, but they differ significantly:
+- Mitosis produces two genetically identical diploid daughter cells and is used for growth and repair.
+- Meiosis produces four genetically different haploid cells (gametes) and is used for sexual reproduction.
+- Mitosis involves one division cycle, while meiosis involves two division cycles.
+- Crossing over and independent assortment occur in meiosis but not in mitosis.
+
+Q: What causes seasons on Earth?
+A: Seasons are caused by the tilt of Earth's axis (approximately 23.5 degrees) relative to its orbital plane around the Sun. As Earth orbits the Sun, different parts receive varying amounts of sunlight. When the Northern Hemisphere tilts toward the Sun, it experiences summer while the Southern Hemisphere experiences winter, and vice versa. The tilt, not the distance from the Sun, is the primary cause of seasons.
+
+Q: What is the greenhouse effect?
+A: The greenhouse effect is a natural process where certain gases in Earth's atmosphere (greenhouse gases like carbon dioxide, methane, and water vapor) trap heat from the Sun. These gases allow sunlight to pass through but absorb and re-radiate infrared radiation, warming the planet. While this effect is natural and necessary for life, human activities have increased greenhouse gas concentrations, leading to enhanced warming and climate change.

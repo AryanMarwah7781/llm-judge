@@ -26,17 +26,17 @@ router = APIRouter(prefix="/api", tags=["evaluation"])
     }
 )
 async def evaluate(
-    file: UploadFile = File(..., description="PDF file containing Q&A pairs"),
+    file: UploadFile = File(..., description="PDF or TXT file containing Q&A pairs"),
     criteria: str = Form(..., description="JSON string of evaluation criteria"),
     judge_model: str = Form(default="gpt-4o", description="Judge model to use"),
     global_threshold: float = Form(default=85, ge=0, le=100, description="Global pass/fail threshold"),
     domain: str = Form(default="general", description="Domain context")
 ) -> EvaluationResponse:
     """
-    Evaluate Q&A pairs from PDF using LLM judge.
+    Evaluate Q&A pairs from PDF or TXT file using LLM judge.
     
     Args:
-        file: PDF file containing Q&A pairs
+        file: PDF or TXT file containing Q&A pairs
         criteria: JSON string with evaluation criteria
         judge_model: LLM judge model (gpt-4o, gpt-4o-mini, claude-sonnet-4)
         global_threshold: Global threshold for pass/fail (0-100)

@@ -1,0 +1,14 @@
+Q: What is blockchain technology?
+A: Blockchain is a decentralized, distributed ledger technology that records transactions across multiple computers. Each block contains transaction data, a timestamp, and a cryptographic hash of the previous block, forming a chain. This structure makes it extremely difficult to alter historical records, providing security and transparency. Blockchain is the underlying technology for cryptocurrencies like Bitcoin and has applications in supply chain management, healthcare, and finance.
+
+Q: What is artificial intelligence?
+A: Artificial Intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems. These processes include learning (acquiring information and rules), reasoning (using rules to reach conclusions), and self-correction. AI can be categorized into narrow AI (designed for specific tasks) and general AI (theoretical systems with human-like intelligence). Applications include virtual assistants, recommendation systems, autonomous vehicles, and medical diagnosis.
+
+Q: What is the Internet of Things (IoT)?
+A: The Internet of Things refers to the network of physical objects embedded with sensors, software, and connectivity that enables them to collect and exchange data over the internet. IoT devices range from smart home appliances and wearable fitness trackers to industrial sensors and smart city infrastructure. This connectivity allows for automation, remote monitoring, and data-driven decision making.
+
+Q: What is 5G technology?
+A: 5G is the fifth generation of cellular network technology, offering significantly faster data speeds, lower latency, and the ability to connect more devices simultaneously compared to 4G. Peak speeds can reach up to 20 Gbps, with latency as low as 1 millisecond. 5G enables applications like autonomous vehicles, remote surgery, smart cities, and enhanced mobile broadband.
+
+Q: What is cryptocurrency?
+A: Cryptocurrency is a digital or virtual currency that uses cryptography for security and operates independently of central banks. It relies on blockchain technology for decentralized control and transparent transactions. Bitcoin, created in 2009, was the first cryptocurrency. Others include Ethereum, Litecoin, and Ripple. Cryptocurrencies can be used for online purchases, investments, and international money transfers with lower fees than traditional banking.

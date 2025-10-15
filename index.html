@@ -459,11 +459,11 @@
             <div className="mb-12 relative bg-white p-8 border-4 border-dashed border-black">
               <div className="relative">
                 <label className="block text-2xl font-black mb-4 uppercase">
-                  UPLOAD_PDF_DOCUMENT
+                  UPLOAD_DOCUMENT (PDF or TXT)
                 </label>
                 <input
                   type="file"
-                  accept="application/pdf"
+                  accept="application/pdf,.pdf,.txt,text/plain"
                   onChange={(e) => setPdfFile(e.target.files?.[0] || null)}
                   className="block w-full text-sm font-mono border-2 border-black p-4 cursor-pointer
                            file:mr-4 file:py-2 file:px-4

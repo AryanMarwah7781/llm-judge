@@ -1,0 +1,29 @@
+Q: What is the citation for Miranda v. Arizona?
+A: Miranda v. Arizona, 384 U.S. 436 (1966). This landmark Supreme Court case established the requirement that law enforcement must inform criminal suspects of their Fifth Amendment right against self-incrimination and Sixth Amendment right to counsel before custodial interrogation. The decision created the famous "Miranda warnings" that police must give to suspects.
+
+Q: What is the legal principle of stare decisis?
+A: Stare decisis is a Latin term meaning "to stand by things decided." It is a fundamental legal doctrine that requires courts to follow precedents established by previous decisions when ruling on similar cases. This principle promotes consistency, predictability, and stability in the legal system, ensuring that similar cases are decided similarly.
+
+Q: What are the elements of a valid contract?
+A: A valid contract requires four essential elements: (1) Offer - a definite proposal by one party to another; (2) Acceptance - unqualified agreement to the terms of the offer; (3) Consideration - something of value exchanged between the parties; and (4) Mutual intent to be bound - both parties must intend to create a legally enforceable agreement. Additionally, the parties must have legal capacity and the contract's purpose must be lawful.
+
+Q: What is the difference between civil law and criminal law?
+A: Civil law deals with disputes between private parties, such as individuals or corporations, where one party seeks compensation or specific performance from another. Remedies are typically monetary damages or injunctions. Criminal law, by contrast, involves prosecution by the government of conduct deemed harmful to society. The burden of proof is higher in criminal cases (beyond a reasonable doubt vs. preponderance of evidence), and penalties include fines, probation, and imprisonment rather than civil damages.
+
+Q: What is the Fourth Amendment?
+A: The Fourth Amendment to the U.S. Constitution protects citizens against unreasonable searches and seizures by the government. It requires that searches and seizures be conducted pursuant to a warrant issued by a neutral magistrate upon probable cause, particularly describing the place to be searched and items to be seized. The Amendment also gives rise to the exclusionary rule, which prohibits the use of illegally obtained evidence in criminal trials.
+
+Q: What is negligence in tort law?
+A: Negligence is a failure to exercise the degree of care that a reasonably prudent person would exercise under similar circumstances. To establish negligence, a plaintiff must prove four elements: (1) Duty - the defendant owed a legal duty of care to the plaintiff; (2) Breach - the defendant breached that duty; (3) Causation - the breach caused the plaintiff's injury (both actual and proximate cause); and (4) Damages - the plaintiff suffered actual harm or loss.
+
+Q: What is the doctrine of qualified immunity?
+A: Qualified immunity is a legal doctrine that shields government officials from civil liability for discretionary actions performed within their official capacity, unless their conduct violated clearly established constitutional or statutory rights that a reasonable person would have known. Established by the Supreme Court in Harlow v. Fitzgerald, 457 U.S. 800 (1982), it balances the need to hold officials accountable with protecting them from frivolous lawsuits that could inhibit effective governance.
+
+Q: What is habeas corpus?
+A: Habeas corpus, Latin for "you have the body," is a fundamental legal right that protects against unlawful and indefinite imprisonment. It is a writ requiring law enforcement to bring a prisoner before the court to determine whether their detention is lawful. The writ of habeas corpus is guaranteed by Article I, Section 9 of the U.S. Constitution and can only be suspended in cases of rebellion or invasion when public safety requires it.
+
+Q: What is the attorney-client privilege?
+A: Attorney-client privilege is a legal privilege that protects confidential communications between an attorney and their client from disclosure. The privilege encourages full and frank communication between attorneys and clients, which promotes effective legal representation. For the privilege to apply, the communication must be: (1) between an attorney and client; (2) intended to be confidential; (3) made for the purpose of seeking or providing legal advice; and (4) not in furtherance of crime or fraud.
+
+Q: What is the burden of proof in a criminal case?
+A: In a criminal case, the prosecution bears the burden of proving the defendant's guilt "beyond a reasonable doubt." This is the highest standard of proof in the American legal system. It means the evidence must be so convincing that a reasonable person would not hesitate to rely on it in making important decisions. The defendant is presumed innocent and does not have to prove their innocence; rather, the prosecution must overcome this presumption with compelling evidence.

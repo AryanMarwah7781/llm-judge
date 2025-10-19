@@ -53,3 +53,7 @@ tmp/
 temp/
 *.tmp
 llmjudgevenv/
+
+# Documentation (for personal reference, not committed)
+ASSUMPTIONS_AND_LIMITATIONS.md
+SHOULD_I_USE_SAFETY_FEATURES.md

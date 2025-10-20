@@ -96,6 +96,13 @@
       const [requestLog, setRequestLog] = useState([]);
       const [showDebugPanel, setShowDebugPanel] = useState(true);
 
+      // Template and safety state
+      const [templates, setTemplates] = useState([]);
+      const [showTemplateModal, setShowTemplateModal] = useState(false);
+      const [templateName, setTemplateName] = useState('');
+      const [safetyWarnings, setSafetyWarnings] = useState([]);
+      const [enableSafetyChecks, setEnableSafetyChecks] = useState(true);
+
       // Backend API URL - change this if your backend is on a different URL
       const API_BASE_URL = 'https://web-production-446a5.up.railway.app';
 
@@ -155,6 +162,8 @@
           const formData = new FormData();
           formData.append('file', pdfFile);
           formData.append('criteria', JSON.stringify(criteria));
+          formData.append('enable_safety_checks', enableSafetyChecks);
+          formData.append('domain', context.domain);
           
           // Map frontend model names to backend model names
           const modelMap = {
@@ -235,6 +244,7 @@
 
           console.log('[API] Results transformed:', transformedResults);
           setResults(transformedResults);
+          setSafetyWarnings(data.safety_warnings || []);
           setStep(4);
         } catch (err) {
           const errorMessage = err.message || 'Failed to evaluate. Make sure the backend is running at ' + API_BASE_URL;
@@ -391,6 +401,37 @@
         </div>
       );
 
+      const TemplateSaveModal = () => (
+        showTemplateModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-8 border-4 border-black max-w-md w-full">
+              <h3 className="text-2xl font-black uppercase mb-4">Save Template</h3>
+              <input
+                type="text"
+                value={templateName}
+                onChange={(e) => setTemplateName(e.target.value)}
+                placeholder="Template name..."
+                className="w-full p-3 border-2 border-black font-mono mb-4"
+              />
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setShowTemplateModal(false)}
+                  className="flex-1 px-6 py-3 border-2 border-black font-black uppercase hover:bg-gray-100"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={saveTemplate}
+                  className="flex-1 px-6 py-3 bg-black text-white font-black uppercase hover:bg-gray-900"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      );
+
       const CriteriaSelection = () => (
         <div className="min-h-screen bg-gray-50 py-20 px-6 relative">
           <GridBackground />
@@ -403,6 +444,23 @@
                 EVALUATION_CRITERIA
               </h2>
             </div>
+
+
+            {templates.length > 0 && (
+              <div className="mb-6">
+                <label className="block font-mono text-sm mb-2 uppercase">Load Template:</label>
+                <select
+                  onChange={(e) => e.target.value && loadTemplate(e.target.value)}
+                  className="w-full p-3 border-2 border-black font-mono bg-white"
+                  defaultValue=""
+                >
+                  <option value="">-- Select a template --</option>
+                  {templates.map(t => (
+                    <option key={t.id} value={t.id}>{t.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div className="space-y-6 mb-12">
               {criteria.map((criterion, idx) => (
@@ -769,6 +827,7 @@
           {step === 3 && <ModelSelection />}
           {evaluating && <EvaluatingScreen />}
           {step === 4 && !evaluating && results && <ResultsScreen />}
+          <TemplateSaveModal />
           
           {/* Debug Panel - Request Log */}
           {showDebugPanel && requestLog.length > 0 && (

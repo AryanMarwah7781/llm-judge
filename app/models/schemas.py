@@ -77,10 +77,28 @@ class EvaluationSummary(BaseModel):
     avg_score: float = Field(..., description="Average weighted score across all pairs")
 
 
+class SafetyWarning(BaseModel):
+    """Safety warning for a Q&A pair."""
+    type: str = Field(..., description="Warning type (manipulation, bias)")
+    severity: str = Field(..., description="Severity level (high, medium, low)")
+    score: float = Field(..., description="Detection confidence score")
+    description: str = Field(..., description="Human-readable warning description")
+    categories: Optional[List[str]] = Field(None, description="Affected categories (for bias)")
+    attacks: Optional[List[str]] = Field(None, description="Detected attack types (for manipulation)")
+
+
+class QASafetyWarnings(BaseModel):
+    """Safety warnings for a specific Q&A pair."""
+    qa_index: int = Field(..., description="Index of the Q&A pair")
+    question: str = Field(..., description="Question preview")
+    warnings: List[SafetyWarning] = Field(..., description="List of warnings")
+
+
 class EvaluationResponse(BaseModel):
     """Complete evaluation response."""
     evaluations: List[QAEvaluation] = Field(..., description="Individual Q&A evaluations")
     summary: EvaluationSummary = Field(..., description="Summary statistics")
+    safety_warnings: Optional[List[QASafetyWarnings]] = Field(default=[], description="Safety warnings from lightweight checks")
 
 
 class HealthResponse(BaseModel):

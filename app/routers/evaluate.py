@@ -2,6 +2,7 @@
 import json
 from typing import List
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
+import logging
 
 from app.models.schemas import (
     EvaluationResponse,
@@ -12,7 +13,11 @@ from app.models.schemas import (
 )
 from app.services.pdf_parser import parse_pdf
 from app.services.evaluator import evaluator
+from app.services.adversarial.jailbreak_detector import JailbreakDetector
+from app.services.adversarial.bias_tester import BiasTester
 from app.config import settings
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api", tags=["evaluation"])
 
@@ -30,7 +35,8 @@ async def evaluate(
     criteria: str = Form(..., description="JSON string of evaluation criteria"),
     judge_model: str = Form(default="gpt-4o", description="Judge model to use"),
     global_threshold: float = Form(default=85, ge=0, le=100, description="Global pass/fail threshold"),
-    domain: str = Form(default="general", description="Domain context")
+    domain: str = Form(default="general", description="Domain context"),
+    enable_safety_checks: bool = Form(default=True, description="Enable lightweight safety checks")
 ) -> EvaluationResponse:
     """
     Evaluate Q&A pairs from PDF or TXT file using LLM judge.
@@ -87,7 +93,61 @@ async def evaluate(
         
         # Parse PDF
         qa_pairs = await parse_pdf(file)
-        
+
+        # Run lightweight safety checks if enabled
+        safety_warnings = []
+        if enable_safety_checks:
+            logger.info("Running safety checks on Q&A pairs...")
+            detector = JailbreakDetector()
+            bias_tester = BiasTester()
+
+            for i, qa_pair in enumerate(qa_pairs):
+                warnings_for_pair = []
+
+                # Check for adversarial manipulation
+                try:
+                    manipulation = await detector.detect_manipulation(
+                        qa_pair.question,
+                        qa_pair.answer
+                    )
+
+                    if manipulation['is_manipulative']:
+                        warnings_for_pair.append({
+                            "type": "manipulation",
+                            "severity": "high" if manipulation['manipulation_score'] > 0.7 else "medium",
+                            "score": round(manipulation['manipulation_score'], 3),
+                            "attacks": [a['type'] for a in manipulation['detected_attacks']],
+                            "description": f"Detected {len(manipulation['detected_attacks'])} manipulation pattern(s)"
+                        })
+                except Exception as e:
+                    logger.error(f"Error in manipulation detection for pair {i}: {e}")
+
+                # Check for bias
+                try:
+                    bias_result = bias_tester.test_for_bias(qa_pair.answer)
+
+                    if bias_result['has_bias'] and bias_result['overall_score'] > 0.6:
+                        warnings_for_pair.append({
+                            "type": "bias",
+                            "severity": "high" if bias_result['overall_score'] > 0.8 else "medium",
+                            "score": round(bias_result['overall_score'], 3),
+                            "categories": bias_result['categories_affected'],
+                            "description": f"Potential bias detected in: {', '.join(bias_result['categories_affected'])}"
+                        })
+                except Exception as e:
+                    logger.error(f"Error in bias detection for pair {i}: {e}")
+
+                # Add warnings if any found
+                if warnings_for_pair:
+                    safety_warnings.append({
+                        "qa_index": i,
+                        "question": qa_pair.question[:100] + "..." if len(qa_pair.question) > 100 else qa_pair.question,
+                        "warnings": warnings_for_pair
+                    })
+
+            if safety_warnings:
+                logger.warning(f"Found safety warnings in {len(safety_warnings)} Q&A pairs")
+
         # Evaluate Q&A pairs
         results = await evaluator.evaluate_qa_pairs(
             qa_pairs=qa_pairs,
@@ -96,8 +156,12 @@ async def evaluate(
             global_threshold=global_threshold,
             domain=domain
         )
-        
-        return results
+
+        # Add safety warnings to results
+        results_dict = results.model_dump()
+        results_dict['safety_warnings'] = safety_warnings
+
+        return EvaluationResponse(**results_dict)
         
     except HTTPException:
         raise

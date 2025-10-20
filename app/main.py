@@ -7,7 +7,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 import logging
 
 from app.config import settings
-from app.routers import health, evaluate
+from app.routers import health, evaluate, templates
 from app.models.schemas import ErrorResponse
 
 # Configure logging
@@ -38,6 +38,7 @@ app.add_middleware(
 # Include routers
 app.include_router(health.router)
 app.include_router(evaluate.router)
+app.include_router(templates.router)
 
 
 @app.exception_handler(StarletteHTTPException)
